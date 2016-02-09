@@ -18,7 +18,7 @@ public class MySqlInzeratOsobneDao implements InzeratOsobneDao{
     @Override
     public void pridat(InzeratOsobne inzerat) {
         String sql = "INSERT INTO inzerat VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena(), inzerat.isKlimatizacia(), inzerat.isTazneZariadenie(), inzerat.isVyhrievaneSedadla());
+        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena(),inzerat.getObrazok(), inzerat.isKlimatizacia(), inzerat.isTazneZariadenie(), inzerat.isVyhrievaneSedadla());
     }
 
     @Override
