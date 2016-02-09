@@ -21,8 +21,8 @@ public class MySqlInzeratNakladneDao implements InzeratNakladneDao {
 
     @Override
     public void pridat(InzeratNakladne inzerat) {
-        String sql = "INSERT INTO inzeratNakladne VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena(), inzerat.isKlimatizacia(), inzerat.isTazneZariadenie(), inzerat.isVyhrievaneSedadla());
+        String sql = "INSERT INTO inzeratNakladne VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena(), inzerat.getObrazok(), inzerat.isKlimatizacia(), inzerat.isTazneZariadenie(), inzerat.isVyhrievaneSedadla());
     }
 
     @Override

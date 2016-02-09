@@ -6,6 +6,18 @@
 package sk.upjs.ics.autobazar.GUI;
 
 import java.awt.Frame;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import sk.upjs.ics.autobazar.InzeratKaravan;
 import sk.upjs.ics.autobazar.InzeratOsobne;
 
@@ -15,6 +27,7 @@ import sk.upjs.ics.autobazar.InzeratOsobne;
  */
 public class InzeratKaravanForm extends javax.swing.JDialog {
     private InzeratKaravan inzerat;
+    JLabel jlab;
     /**
      * Creates new form InzeratKaravanForm
      */
@@ -31,7 +44,21 @@ public class InzeratKaravanForm extends javax.swing.JDialog {
         
         this.inzerat = inzerat;
         inzeratTextArea.setText(inzerat.toString2());
-        cenaTextField.setText(inzerat.getCena().toString());        
+        cenaTextField.setText(inzerat.getCena().toString()); 
+        if (inzerat.getObrazok() != null) {
+            try {
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(inzerat.getObrazok()));
+                obrazokScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+                obrazokScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                Image scaledImage = img.getScaledInstance(obrazokScrollPane.getWidth(), obrazokScrollPane.getHeight(), Image.SCALE_SMOOTH);
+                jlab = new JLabel(new ImageIcon(scaledImage));
+                jlab.setHorizontalAlignment(JLabel.CENTER);
+                obrazokScrollPane.getViewport().add(jlab);
+            } catch (IOException ex) {
+                Logger.getLogger(InzeratKaravanForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     /**

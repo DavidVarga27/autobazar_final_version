@@ -29,11 +29,31 @@ public class InzeratOsobne {
     
     private Long cena;
     
+    private byte[] obrazok;
+    
     private boolean klimatizacia;
     
     private boolean tazneZariadenie;
     
     private boolean vyhrievaneSedadla;
+
+    public byte[] getObrazok() {
+        return obrazok;
+    }
+
+    public void setObrazok(byte[] obrazok) {
+        this.obrazok = obrazok;
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(SimpleDateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
+
+    
 
     public boolean isKlimatizacia() {
         return klimatizacia;

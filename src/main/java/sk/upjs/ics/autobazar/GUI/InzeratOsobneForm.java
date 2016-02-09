@@ -6,6 +6,16 @@
 package sk.upjs.ics.autobazar.GUI;
 
 import java.awt.Frame;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import sk.upjs.ics.autobazar.InzeratOsobne;
 
 /**
@@ -14,6 +24,7 @@ import sk.upjs.ics.autobazar.InzeratOsobne;
  */
 public class InzeratOsobneForm extends javax.swing.JDialog {
     private InzeratOsobne inzerat;
+    private JLabel jlab;
     /**
      * Creates new form InzeratForm
      */
@@ -31,6 +42,21 @@ public class InzeratOsobneForm extends javax.swing.JDialog {
         this.inzerat = inzerat;
         inzeratTextArea.setText(inzerat.toString2());
         cenaTextField.setText(inzerat.getCena().toString());
+        
+        if (inzerat.getObrazok() != null) {
+            try {
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(inzerat.getObrazok()));
+                obrazokScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+                obrazokScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                Image scaledImage = img.getScaledInstance(obrazokScrollPane.getWidth(), obrazokScrollPane.getHeight(), Image.SCALE_SMOOTH);
+                jlab = new JLabel(new ImageIcon(scaledImage));
+                jlab.setHorizontalAlignment(JLabel.CENTER);
+                obrazokScrollPane.getViewport().add(jlab);
+            } catch (IOException ex) {
+                Logger.getLogger(InzeratKaravanForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
     
     
@@ -50,6 +76,7 @@ public class InzeratOsobneForm extends javax.swing.JDialog {
         spatButton = new javax.swing.JButton();
         cenaLabel = new javax.swing.JLabel();
         euroLabel = new javax.swing.JLabel();
+        obrazokScrollPane = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -83,23 +110,31 @@ public class InzeratOsobneForm extends javax.swing.JDialog {
                         .addGap(27, 27, 27))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addComponent(cenaLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(euroLabel)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(cenaLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(euroLabel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(obrazokScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(15, 15, 15))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cenaLabel)
-                        .addComponent(euroLabel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(obrazokScrollPane)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cenaLabel)
+                            .addComponent(euroLabel)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(spatButton)
@@ -162,6 +197,7 @@ public class InzeratOsobneForm extends javax.swing.JDialog {
     private javax.swing.JLabel euroLabel;
     private javax.swing.JTextArea inzeratTextArea;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane obrazokScrollPane;
     private javax.swing.JButton spatButton;
     // End of variables declaration//GEN-END:variables
 }

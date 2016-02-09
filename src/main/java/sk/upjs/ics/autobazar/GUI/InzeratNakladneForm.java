@@ -6,6 +6,16 @@
 package sk.upjs.ics.autobazar.GUI;
 
 import java.awt.Frame;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import sk.upjs.ics.autobazar.InzeratNakladne;
 import sk.upjs.ics.autobazar.InzeratNakladne;
 
@@ -15,6 +25,7 @@ import sk.upjs.ics.autobazar.InzeratNakladne;
  */
 public class InzeratNakladneForm extends javax.swing.JDialog {
     private InzeratNakladne inzerat;
+    private JLabel jlab;
     
     /**
      * Creates new form InzeratNakladneForm
@@ -33,6 +44,21 @@ public class InzeratNakladneForm extends javax.swing.JDialog {
         this.inzerat = inzerat;
         inzeratTextArea.setText(inzerat.toString2());
         cenaTextField.setText(inzerat.getCena().toString());
+        
+         if (inzerat.getObrazok() != null) {
+            try {
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(inzerat.getObrazok()));
+                obrazokScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+                obrazokScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                Image scaledImage = img.getScaledInstance(obrazokScrollPane.getWidth(), obrazokScrollPane.getHeight(), Image.SCALE_SMOOTH);
+                jlab = new JLabel(new ImageIcon(scaledImage));
+                jlab.setHorizontalAlignment(JLabel.CENTER);
+                obrazokScrollPane.getViewport().add(jlab);
+            } catch (IOException ex) {
+                Logger.getLogger(InzeratKaravanForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }
 
     /**
@@ -50,6 +76,7 @@ public class InzeratNakladneForm extends javax.swing.JDialog {
         caneLabel = new javax.swing.JLabel();
         euroLabel = new javax.swing.JLabel();
         spatButton = new javax.swing.JButton();
+        obrazokScrollPane = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,32 +102,39 @@ public class InzeratNakladneForm extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addComponent(caneLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(spatButton)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 71, Short.MAX_VALUE)
+                        .addComponent(caneLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(euroLabel)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spatButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(euroLabel))))
+                    .addComponent(obrazokScrollPane))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(236, 236, 236)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(caneLabel)
-                    .addComponent(euroLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(spatButton)
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(obrazokScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cenaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(caneLabel)
+                            .addComponent(euroLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addComponent(spatButton)
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -159,6 +193,7 @@ public class InzeratNakladneForm extends javax.swing.JDialog {
     private javax.swing.JLabel euroLabel;
     private javax.swing.JTextArea inzeratTextArea;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane obrazokScrollPane;
     private javax.swing.JButton spatButton;
     // End of variables declaration//GEN-END:variables
 }

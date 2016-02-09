@@ -16,8 +16,8 @@ public class MySqlInzeratMotocykelDao implements InzeratMotocykelDao{
 
     @Override
     public void pridat(InzeratMotocykel inzerat) {
-        String sql = "INSERT INTO inzeratMotocykel VALUES (?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena());
+        String sql = "INSERT INTO inzeratMotocykel VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql,inzerat.getIdP(),null,inzerat.getZnacka(),inzerat.getModel(),inzerat.getRocnik(),inzerat.getKm(),inzerat.getObjem(),inzerat.getPrevodovka(),inzerat.getVykon(),inzerat.getDatumPridania(), inzerat.getCena(),inzerat.getObrazok());
     }
 
     @Override

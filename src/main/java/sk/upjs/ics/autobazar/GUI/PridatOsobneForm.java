@@ -6,8 +6,14 @@
 package sk.upjs.ics.autobazar.GUI;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -20,10 +26,11 @@ import sk.upjs.ics.autobazar.InzeratOsobneDao;
  * @author PC
  */
 public class PridatOsobneForm extends javax.swing.JDialog {
+
     private Long idP = null;
-    
+
     private InzeratOsobneDao inzeratDao = InzeratFactory.INSTANCE.getInzeratOsobneDao();
-    
+
     /**
      * Creates new form PridatInzeratForm
      */
@@ -31,11 +38,11 @@ public class PridatOsobneForm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-    
-    public PridatOsobneForm(java.awt.Frame parent, boolean modal,Long idP) {
+
+    public PridatOsobneForm(java.awt.Frame parent, boolean modal, Long idP) {
         super(parent, modal);
         initComponents();
-        this.idP=idP;
+        this.idP = idP;
     }
 
     /**
@@ -244,52 +251,52 @@ public class PridatOsobneForm extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         InzeratOsobne i = new InzeratOsobne();
         Long value = null;
-        if (znackaTextField.getText().trim().equals("")){
+        if (znackaTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste znacku.");
             return;
         }
         i.setZnacka(znackaTextField.getText());
-        
-        if (modelTextField.getText().trim().equals("")){
+
+        if (modelTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste model.");
             return;
         }
         i.setModel(modelTextField.getText());
-        
-        if (rocnikTextField.getText().trim().equals("")){
+
+        if (rocnikTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste rocnik.");
             return;
         }
         i.setRocnik(rocnikTextField.getText());
-        
-        if (objemTextField.getText().trim().equals("")){
+
+        if (objemTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste objem.");
             return;
         }
         value = Long.parseLong(objemTextField.getText());
         i.setObjem(value);
-        
-        if (kmTextField.getText().trim().equals("")){
+
+        if (kmTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste pocet kilometrov.");
             return;
         }
         value = Long.parseLong(kmTextField.getText());
         i.setKm(value);
-        
-        if (prevodovkaTextField.getText().trim().equals("")){
+
+        if (prevodovkaTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste typ prevodovky.");
             return;
         }
         i.setPrevodovka(prevodovkaTextField.getText());
-        
-        if (vykonTextField.getText().trim().equals("")){
+
+        if (vykonTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste vykon.");
             return;
         }
         value = Long.parseLong(vykonTextField.getText());
         i.setVykon(value);
-        
-        if (cenaTextField.getText().trim().equals("")){
+
+        if (cenaTextField.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Nezadali ste cenu.");
             return;
         }
@@ -300,7 +307,13 @@ public class PridatOsobneForm extends javax.swing.JDialog {
         i.setTazneZariadenie(tazneZariadenieCheckBox.isSelected());
         i.setVyhrievaneSedadla(vyhrievaneSedadlaCheckBox.isSelected());
         i.setIdP(idP);
-
+        Path path = Paths.get(obrazokTextField.getText());
+        try {
+            byte[] file = Files.readAllBytes(path);
+            i.setObrazok(file);
+        } catch (IOException ex) {
+            Logger.getLogger(PridatOsobneForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         inzeratDao.pridat(i);
         setVisible(false);
 

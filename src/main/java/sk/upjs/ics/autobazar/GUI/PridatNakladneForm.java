@@ -1,8 +1,14 @@
 package sk.upjs.ics.autobazar.GUI;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -296,7 +302,13 @@ public class PridatNakladneForm extends javax.swing.JDialog {
         i.setTazneZariadenie(tazneZariadenieCheckBox.isSelected());
         i.setVyhrievaneSedadla(vyhrievaneSedadlaCheckBox.isSelected());
         i.setIdP(idP);
-        
+        Path path = Paths.get(obrazokTextField.getText());
+        try {
+            byte[] file = Files.readAllBytes(path);
+            i.setObrazok(file);
+        } catch (IOException ex) {
+            Logger.getLogger(PridatNakladneForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         inzeratDao2.pridat(i);
         setVisible(false);
     }//GEN-LAST:event_okButtonActionPerformed

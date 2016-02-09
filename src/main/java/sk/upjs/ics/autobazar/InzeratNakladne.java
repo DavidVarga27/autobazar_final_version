@@ -4,8 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InzeratNakladne {
+
     private Long idP;
-    
+
     private Long id;
 
     private String znacka;
@@ -13,24 +14,43 @@ public class InzeratNakladne {
     private String model;
 
     private String rocnik;
-    
+
     private Long km;
 
     private Long objem;
-    
+
     public String prevodovka;
-    
+
     public Long vykon;
 
     private Date datumPridania;
-    
+
     private Long cena;
-    
+
+    private byte[] obrazok;
+
     private boolean klimatizacia;
-    
+
     private boolean tazneZariadenie;
-    
+
     private boolean vyhrievaneSedadla;
+
+
+    public byte[] getObrazok() {
+        return obrazok;
+    }
+
+    public void setObrazok(byte[] obrazok) {
+        this.obrazok = obrazok;
+    }
+
+    public SimpleDateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public void setDateFormat(SimpleDateFormat dateFormat) {
+        this.dateFormat = dateFormat;
+    }
 
     public boolean isKlimatizacia() {
         return klimatizacia;
@@ -55,7 +75,7 @@ public class InzeratNakladne {
     public void setVyhrievaneSedadla(boolean vyhrievaneSedadla) {
         this.vyhrievaneSedadla = vyhrievaneSedadla;
     }
-        
+
     public Long getIdP() {
         return idP;
     }
@@ -63,7 +83,6 @@ public class InzeratNakladne {
     public void setIdP(Long idP) {
         this.idP = idP;
     }
-    
 
     public Long getId() {
         return id;
@@ -144,44 +163,44 @@ public class InzeratNakladne {
     public void setCena(Long cena) {
         this.cena = cena;
     }
-    
+
     private SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.yyyy");
-    
+
     @Override
     public String toString() {
-        return this.znacka +" "+ this.model +", Rok vyroby: "+ this.rocnik +", Objem: "+ this.objem+"\n\n";
+        return this.znacka + " " + this.model + ", Rok vyroby: " + this.rocnik + ", Objem: " + this.objem + "\n\n";
     }
-    
-    public String toString2() {        
+
+    public String toString2() {
         String klimatizacia;
         String tazneZariadenie;
         String vyhrievaneSedadla;
-        
-        if(this.isKlimatizacia()){
-            klimatizacia = "ano";            
+
+        if (this.isKlimatizacia()) {
+            klimatizacia = "ano";
         } else {
             klimatizacia = "nie";
         }
-        if(this.isTazneZariadenie()){
-            tazneZariadenie = "ano";            
+        if (this.isTazneZariadenie()) {
+            tazneZariadenie = "ano";
         } else {
             tazneZariadenie = "nie";
         }
-        if(this.isVyhrievaneSedadla()){
+        if (this.isVyhrievaneSedadla()) {
             vyhrievaneSedadla = "ano";
         } else {
             vyhrievaneSedadla = "nie";
-        }               
-        return "Znacka: "+ this.znacka +"\n"+
-                "Model: "+ this.model +"\n"+
-                "Rok vyroby: "+ this.rocnik +"\n"+
-                "Objem: "+ this.objem+"\n"+
-                "Vykon: "+this.vykon+" KW\n"+
-                "Pocet najazdenych kilometrov: "+this.km+"\n"+
-                "Prevodovka: "+this.getPrevodovka()+"\n"+                
-                "Klimatizacia: " +klimatizacia +"\n"+
-                "Tazne zariadenie: "+tazneZariadenie +"\n"+
-                "Vyhrievane sedadla: " +vyhrievaneSedadla +"\n"+
-                "Datum pridania: "+ dateFormat.format(this.datumPridania); 
+        }
+        return "Znacka: " + this.znacka + "\n"
+                + "Model: " + this.model + "\n"
+                + "Rok vyroby: " + this.rocnik + "\n"
+                + "Objem: " + this.objem + "\n"
+                + "Vykon: " + this.vykon + " KW\n"
+                + "Pocet najazdenych kilometrov: " + this.km + "\n"
+                + "Prevodovka: " + this.getPrevodovka() + "\n"
+                + "Klimatizacia: " + klimatizacia + "\n"
+                + "Tazne zariadenie: " + tazneZariadenie + "\n"
+                + "Vyhrievane sedadla: " + vyhrievaneSedadla + "\n"
+                + "Datum pridania: " + dateFormat.format(this.datumPridania);
     }
 }
